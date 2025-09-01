@@ -102,7 +102,7 @@ impl Image {
             .map(Value::into_u16)
             .transpose()?
             .and_then(PhotometricInterpretation::from_u16)
-            .ok_or(TiffUnsupportedError::UnknownInterpretation)?;
+            .unwrap_or(PhotometricInterpretation::BlackIsZero);
 
         // Try to parse both the compression method and the number, format, and bits of the included samples.
         // If they are not explicitly specified, those tags are reset to their default values and not carried from previous images.
